@@ -1,0 +1,8 @@
+---
+- name: Seeding Red Hat Playbooks
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Display message
+      debug:
+        msg: 'Hello'
