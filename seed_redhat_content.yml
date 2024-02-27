@@ -5,4 +5,15 @@
   tasks:
     - name: Display message
       debug:
-        msg: '{{ test }}'
+        msg: "Network"
+      when: 'Network' is in seed_domain | default([])
+
+    - name: Display message
+      debug:
+        msg: "Linux"
+      when: 'Linux' is in seed_domain | default([])
+
+    - name: Display message
+      debug:
+        msg: "Cloud"
+      when: 'Cloud' is in seed_domain | default([])
