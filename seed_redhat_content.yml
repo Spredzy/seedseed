@@ -13,6 +13,9 @@
         - name: Include vars
           ansible.builtin.include_vars:
             dir: '{{ seed_network_cac_dir }}'
+            extensions:
+              - yml
+              - yaml
 
         - name: Display message
           debug:
