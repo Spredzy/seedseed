@@ -16,6 +16,7 @@
             extensions:
               - yml
               - yaml
+            ignore_unknown_extensions: true
 
         - name: Display message
           debug:
