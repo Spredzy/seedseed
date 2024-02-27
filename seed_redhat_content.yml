@@ -3,14 +3,20 @@
   hosts: localhost
   gather_facts: false
   tasks:
-    - name: Include vars
-      ansible.builtin.include_vars:
-        dir: 'group_vars/network'
-      when: "'Network' is in seed_domain | default([])"
 
-    - name: Display message
-      debug:
-        msg: "{{ test | default('fail') }}"
+    - block:
+        - name: Get Red Hat Networking Supported Playbooks
+          ansible.builtin.git:
+            repo: '{{ seed_network_cac_url }}'
+            dest: '{{ seed_network_cac_dir }}'
+
+        - name: Include vars
+          ansible.builtin.include_vars:
+            dir: '{{ seed_network_cac_dir }}'
+
+        - name: Display message
+          debug:
+            msg: "{{ controller_temlates | default('fail') }}"
       when: "'Network' is in seed_domain | default([])"
 
     - name: Display message

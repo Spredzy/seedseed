@@ -1,2 +1,5 @@
 ---
 test: 'Test is working'
+
+seed_network_cac_url: https://github.com/Spredzy/seed_network_cac
+seed_network_cac_dir: /tmp/seed_network_cac
