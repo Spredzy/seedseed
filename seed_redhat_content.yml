@@ -20,7 +20,7 @@
 
         - name: Display message
           debug:
-            msg: "{{ controller_temlates | default('fail') }}"
+            msg: "{{ controller_templates | default('fail') }}"
       when: "'Network' is in seed_domain | default([])"
 
     - name: Display message
