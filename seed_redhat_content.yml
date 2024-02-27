@@ -21,6 +21,11 @@
         - name: Display message
           debug:
             msg: "{{ controller_templates | default('fail') }}"
+
+        - name: Execute automation controller resource configuration
+          ansible.builtin.include_role:
+            name: infra.controller_configuration.dispatch
+
       when: "'Network' is in seed_domain | default([])"
 
     - name: Display message
