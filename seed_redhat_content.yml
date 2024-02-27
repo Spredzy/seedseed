@@ -29,6 +29,9 @@
         - name: Execute automation controller resource configuration
           ansible.builtin.include_role:
             name: infra.controller_configuration.dispatch
+          vars:
+            controller_configuration_async_delay: 1
+            controller_configuration_async_retries: 30
 
       when: "'Network' is in seed_domain | default([])"
 
