@@ -24,7 +24,7 @@
 
         - name: Display job templates
           debug:
-            msg: "{{ controller_projects | default('fail') }}"
+            msg: "{{ controller_templates | default('fail') }}"
 
         - name: Execute automation controller resource configuration
           ansible.builtin.include_role:
