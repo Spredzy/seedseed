@@ -3,9 +3,14 @@
   hosts: localhost
   gather_facts: false
   tasks:
+    - name: Include vars
+      ansible.builtin.include_vars:
+        dir: 'group_vars/network'
+      when: "'Network' is in seed_domain | default([])"
+
     - name: Display message
       debug:
-        msg: "Network"
+        msg: "{{ test | default('fail') }}"
       when: "'Network' is in seed_domain | default([])"
 
     - name: Display message
