@@ -27,12 +27,48 @@
 
       when: "'Network' is in seed_domain | default([])"
 
-    - name: Display message
-      debug:
-        msg: "Linux"
-      when: "'Linux' is in seed_domain | default([])"
+    - block:
+        - name: Get Red Hat Cloud Supported Playbooks
+          ansible.builtin.git:
+            repo: '{{ seed_cloud_cac_url }}'
+            dest: '{{ seed_cloud_cac_dir }}'
 
-    - name: Display message
-      debug:
-        msg: "Cloud"
+        - name: Include vars
+          ansible.builtin.include_vars:
+            dir: '{{ seed_cloud_cac_dir }}'
+            extensions:
+              - yml
+              - yaml
+            ignore_unknown_extensions: true
+
+        - name: Execute automation controller resource configuration
+          ansible.builtin.include_role:
+            name: infra.controller_configuration.dispatch
+          vars:
+            controller_configuration_async_delay: 1
+            controller_configuration_async_retries: 30
+
       when: "'Cloud' is in seed_domain | default([])"
+
+    - block:
+        - name: Get Red Hat Linux Supported Playbooks
+          ansible.builtin.git:
+            repo: '{{ seed_linux_cac_url }}'
+            dest: '{{ seed_linux_cac_dir }}'
+
+        - name: Include vars
+          ansible.builtin.include_vars:
+            dir: '{{ seed_linux_cac_dir }}'
+            extensions:
+              - yml
+              - yaml
+            ignore_unknown_extensions: true
+
+        - name: Execute automation controller resource configuration
+          ansible.builtin.include_role:
+            name: infra.controller_configuration.dispatch
+          vars:
+            controller_configuration_async_delay: 1
+            controller_configuration_async_retries: 30
+
+      when: "'Linux' is in seed_domain | default([])"
