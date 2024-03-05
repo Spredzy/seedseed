@@ -1,0 +1,42 @@
+{
+    "name": "Azure Survey",
+    "description": "Azure Survey",
+    "spec": [
+      {
+        "question_description": "Specify the Azure region in which your arc servers reside",
+        "required": true,
+        "variable": "seed_cloud_azure_region",
+        "type": "text",
+        "min": 0,
+        "default": "",
+        "max": 128,
+        "choices": "",
+        "new_question": true,
+        "question_name": "Which Azure region will your Arc servers reside?"
+      },
+      {
+        "question_description": "Specify the name of the resource group",
+        "required": true,
+        "variable": "seed_cloud_azure_resource_group_name",
+        "type": "text",
+        "min": 0,
+        "default": "",
+        "max": 128,
+        "choices": "",
+        "new_question": true,
+        "question_name": "What is the name of your resource group?"
+      },
+      {
+        "question_description": "Specify your Log Analyticss Workspace",
+        "required": true,
+        "variable": "seed_cloud_azure_analytics_workspace_name",
+        "type": "text",
+        "min": 0,
+        "default": "",
+        "max": 128,
+        "choices": "",
+        "new_question": true,
+        "question_name": "What is the name of your Log Analytics Workspace?"
+      }
+    ]
+  }
