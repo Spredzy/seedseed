@@ -10,7 +10,7 @@
 
     - name: Include vars
       ansible.builtin.include_vars:
-        dir: '{{ seed_custom_cac_url.split("/")[-1] }}'
+        dir: '{{ seed_custom_cac_url.split("/")[-1] }}/extensions/experiences/patching_os'
         extensions:
           - yml
           - yaml
