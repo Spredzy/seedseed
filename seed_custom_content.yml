@@ -15,14 +15,16 @@
         recurse: true
       register: experiences
 
-    - name: Include vars
-      ansible.builtin.include_vars:
-        file: '{{ item.path }}'
-      loop: '{{ experiences.files }}'
+    - block:
+        - name: Include vars
+          ansible.builtin.include_vars:
+            file: '{{ item.path }}'
 
-    - name: Execute automation controller resource configuration
-      ansible.builtin.include_role:
-        name: infra.controller_configuration.dispatch
-      vars:
-        controller_configuration_async_delay: 1
-        controller_configuration_async_retries: 30
+        - name: Execute automation controller resource configuration
+          ansible.builtin.include_role:
+            name: infra.controller_configuration.dispatch
+          vars:
+            controller_configuration_async_delay: 1
+            controller_configuration_async_retries: 30
+
+      loop: '{{ experiences.files }}'
