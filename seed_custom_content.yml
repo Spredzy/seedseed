@@ -8,9 +8,17 @@
         repo: '{{ seed_custom_cac_url }}'
         dest: '{{ seed_custom_cac_url.split("/")[-1] }}'
 
+    - name: Get all experiences in collection
+      ansible.builtin.find:
+        paths: .
+        patterns: setup.yml
+        recurse: true
+      register: experiences
+
     - name: Include vars
       ansible.builtin.include_vars:
-        file: '{{ seed_custom_cac_url.split("/")[-1] }}/extensions/experiences/patching_os/setup.yml'
+        file: '{{ seed_custom_cac_url.split("/")[-1] }}/{{ item.path }}'
+      loop: '{{ experiences.files }}'
 
     - name: Execute automation controller resource configuration
       ansible.builtin.include_role:
