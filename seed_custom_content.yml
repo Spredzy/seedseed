@@ -10,10 +10,17 @@
 
     - name: Get all experiences in collection
       ansible.builtin.find:
-        paths: '{{ seed_custom_cac_url.split("/")[-1] }}/..'
+        paths: '{{ seed_custom_cac_url.split("/")[-1] }}'
         patterns: setup.yml
         recurse: true
       register: experiences
+
+    - debug:
+        msg: '{{ item.path }}'
+      loop: '{{ experiences.files }}'
+
+    - debug:
+        msg: '{{ seed_custom_cac_url.split("/")[-1] }}'
 
     - name: Include vars
       ansible.builtin.include_vars:
