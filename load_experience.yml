@@ -3,6 +3,31 @@
   ansible.builtin.include_vars:
     file: '{{ experience.path }}'
 
+- name: Extract information
+  set_fact:
+    __experience_bucket: '{{ experience.path.split("/")[0] }}'
+    __experience_name: '{{ experience.path.split("/")[3] }}'
+
+- name: 'Check if an Execution Environment is provided for {{ __experience_bucket }}.{{ __experience_name }}'
+  ansible.builtin.file:
+    path: "{{ experience.path.replace('setup.yml', 'exec_env') }}"
+  failed_when: false
+  register: __experience_exec_env
+
+- name: Generate and publish Execution Environment
+  ansible.builtin.include_role:
+    name: infra.ee_utilities.ee_builder
+  vars:
+    ee_builder_dir_clean: false
+    ee_builder_dir: "{{ experience.path.replace('setup.yml', 'exec_env') }}"
+    ee_update_base_images: false
+    ee_pull_collections_from_hub: false
+    ee_image_push: false
+    ee_list:
+      - name: "{{ __experience_bucket }}.{{ __experience_name }}"
+        skip_generation: true
+  when: __experience_exec_env.state == 'directory'
+
 - name: Execute automation controller resource configuration
   ansible.builtin.include_role:
     name: infra.controller_configuration.dispatch
