@@ -4,6 +4,13 @@
   gather_facts: false
   tasks:
 
+    - name: Create temporary build directory
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: build
+      register: tmp_dir
+      delegate_to: builder
+
     - name: Get Custom Playbooks content
       ansible.builtin.git:
         repo: '{{ seed_custom_cac_url }}'
@@ -16,8 +23,10 @@
         recurse: true
       register: experiences
 
-    - name: Load experiences
+    - name: Load xperiences
       ansible.builtin.include_tasks: load_experience.yml
       loop: '{{ experiences.files }}'
       loop_control:
         loop_var: experience
+      vars:
+        tmp_dir_path: "{{ tmp_dir.path }}"

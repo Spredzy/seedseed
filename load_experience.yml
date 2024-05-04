@@ -14,18 +14,10 @@
   failed_when: false
   register: __experience_exec_env
 
-- name: Create temporary build directory
-  ansible.builtin.tempfile:
-    state: directory
-    suffix: build
-  register: tmp_dir
-  delegate_to: builder
-  when: __experience_exec_env.state == 'directory'
-
 - name: Copy Execution Environment definition over
   ansible.builtin.copy:
     src: "{{ experience.path.replace('setup.yml', 'exec_env')/ }}execution_environment.yml"
-    dest: "{{ tmp_dir.path }}/execution_environment.yml"
+    dest: "{{ tmp_dir_path }}/execution_environment.yml"
     mode: '0644'
   delegate_to: builder
   when: __experience_exec_env.state == 'directory'
