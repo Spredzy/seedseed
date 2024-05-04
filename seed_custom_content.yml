@@ -1,6 +1,6 @@
 ---
 - name: Seeding Custom Playbooks
-  hosts: locahost
+  hosts: localhost
   gather_facts: false
   tasks:
 
