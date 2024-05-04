@@ -24,7 +24,7 @@
       register: experiences
 
     - name: Load xperiences
-      ansible.builtin.import_tasks: load_experience.yml
+      ansible.builtin.include_tasks: load_experience.yml
       loop: '{{ experiences.files }}'
       loop_control:
         loop_var: experience
