@@ -1,6 +1,6 @@
 ---
 - name: Seeding Custom Playbooks
-  hosts: localhost
+  hosts: builder
   gather_facts: false
   tasks:
     - name: Get Custom Playbooks content
