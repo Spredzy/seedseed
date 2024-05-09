@@ -6,6 +6,7 @@
     CONTROLLER_USERNAME: "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
     CONTROLLER_PASSWORD: "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
     CONTROLLER_HOST: "{{ lookup('env', 'CONTROLLER_HOST') }}"
+    CONTROLLER_VERIFY_SSL: false
   tasks:
 
     - name: Create temp dir
