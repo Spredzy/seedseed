@@ -31,6 +31,13 @@
         skip_generation: true
   when: __experience_exec_env.state == 'directory'
 
+_ name: Dynamically add a new EE to controller_configuration
+  ansible.builtin.set_fact:
+    controller_execution_environments:
+      - name: "ee_{{ __experience_bucket }}_{{ __experience_name }}"
+        image: "{{ ee_registry_url }}/{{ __experience_bucket }}_{{ __experience_name }}"
+  when: __experience_exec_env.state == 'directory'
+
 - name: Execute automation controller resource configuration
   ansible.builtin.include_role:
     name: infra.controller_configuration.dispatch
