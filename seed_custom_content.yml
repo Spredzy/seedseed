@@ -2,6 +2,10 @@
 - name: Seeding Custom Playbooks
   hosts: builder
   gather_facts: false
+  environment:
+    CONTROLLER_USERNAME: "{{ lookup('env', CONTROLLER_USERNAME) }}"
+    CONTROLLER_PASSWORD: "{{ lookup('env', CONTROLLER_PASSWORD) }}"
+    CONTROLLER_HOST: "{{ lookup('env', CONTROLLER_HOST) }}"
   tasks:
 
     - name: Create temp dir
