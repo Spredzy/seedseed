@@ -34,3 +34,5 @@
   vars:
     controller_configuration_async_delay: 1
     controller_configuration_async_retries: 30
+  apply:
+    delegate_to: localhost
