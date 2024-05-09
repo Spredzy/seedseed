@@ -22,9 +22,11 @@
     ee_builder_dir: "{{ experience.path.replace('setup.yml', 'exec_env') }}"
     ee_update_base_images: false
     ee_pull_collections_from_hub: false
-    ee_image_push: false
+    ee_image_push: true
+    ee_registry_username: '{{ ee_registry_username }}'
+    ee_registry_password: '{{ ee_registry_password }}'
     ee_list:
-      - name: "{{ __experience_bucket }}_{{ __experience_name }}"
+      - name: "{{ ee_registry_url }}/{{ __experience_bucket }}_{{ __experience_name }}"
         skip_generation: true
   when: __experience_exec_env.state == 'directory'
 
