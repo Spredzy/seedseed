@@ -1,18 +1,23 @@
 ---
 - name: Seeding Custom Playbooks
-  hosts: localhost
+  hosts: builder
   gather_facts: false
   tasks:
+
+    - name: Create temp dir
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: build
+      register: tmp_dir
 
     - name: Get Custom Playbooks content
       ansible.builtin.git:
         repo: '{{ seed_custom_cac_url }}'
-        dest: '{{ seed_custom_cac_url.split("/")[-1] }}'
-
+        dest: '{{ tmp_dir.path}}/{{ seed_custom_cac_url.split("/")[-1] }}'
 
     - name: Get all experiences in collection
       ansible.builtin.find:
-        paths: '{{ seed_custom_cac_url.split("/")[-1] }}'
+        paths: '{{ tmp_dir.path }}/{{ seed_custom_cac_url.split("/")[-1] }}'
         patterns: setup.yml
         recurse: true
       register: experiences
