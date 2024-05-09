@@ -5,8 +5,8 @@
 
 - name: Extract information
   set_fact:
-    __experience_bucket: '{{ experience.path.split("/")[0] }}'
-    __experience_name: '{{ experience.path.split("/")[3] }}'
+    __experience_bucket: '{{ experience.path.split("/")[2] }}'
+    __experience_name: '{{ experience.path.split("/")[5] }}'
 
 - name: 'Check if an Execution Environment is provided for {{ __experience_bucket }}.{{ __experience_name }}'
   ansible.builtin.file:
@@ -24,7 +24,7 @@
     ee_pull_collections_from_hub: false
     ee_image_push: false
     ee_list:
-      - name: "{{ __experience_bucket }}.{{ __experience_name }}"
+      - name: "{{ __experience_bucket }}_{{ __experience_name }}"
         skip_generation: true
   when: __experience_exec_env.state == 'directory'
 
