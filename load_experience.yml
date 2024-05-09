@@ -25,6 +25,7 @@
     ee_image_push: true
     ee_registry_username: '{{ ee_registry_username }}'
     ee_registry_password: '{{ ee_registry_password }}'
+    ee_registry_dest: '{{ ee_registry_url }}'
     ee_list:
       - name: "{{ ee_registry_url }}/{{ __experience_bucket }}_{{ __experience_name }}"
         skip_generation: true
