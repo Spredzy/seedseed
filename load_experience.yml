@@ -5,8 +5,8 @@
 
 - name: Extract information
   set_fact:
-    __experience_bucket: '{{ experience.path.split("/")[2] }}'
-    __experience_name: '{{ experience.path.split("/")[5] }}'
+    __experience_bucket: '{{ experience.path.split("/")[3] }}'
+    __experience_name: '{{ experience.path.split("/")[6] }}'
 
 - name: 'Check if an Execution Environment is provided for {{ __experience_bucket }}.{{ __experience_name }}'
   ansible.builtin.file:
