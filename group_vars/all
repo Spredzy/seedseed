@@ -1,18 +1,18 @@
 ---
-seed_network_cac_url: https://github.com/Spredzy/seed_network_cac
+seed_network_cac_url: https://github.com/rohitthakur2590/seed_network_cac
 seed_network_cac_dir: /tmp/seed_network_cac
 
-seed_cloud_cac_url: https://github.com/Spredzy/seed_cloud_cac
+seed_cloud_cac_url: https://github.com/rohitthakur2590/seed_network_cac
 seed_cloud_cac_dir: /tmp/seed_cloud_cac
 
-seed_linux_cac_url: https://github.com/Spredzy/seed_linux_cac
+seed_linux_cac_url: https://github.com/rohitthakur2590/seed_network_cac
 seed_linux_cac_dir: /tmp/seed_linux_cac
 
-seed_dell_cac_url: https://github.com/Spredzy/seed_dell_cac
+seed_dell_cac_url: https://github.com/rohitthakur2590/seed_network_cac
 seed_dell_cac_dir: /tmp/seed_dell_cac
 
-seed_f5_cac_url: https://github.com/Spredzy/seed_f5_cac
+seed_f5_cac_url: https://github.com/rohitthakur2590/seed_network_cac
 seed_f5_cac_dir: /tmp/seed_f5_cac
 
-seed_dynatrace_cac_url: https://github.com/Spredzy/seed_dynatrace_cac
+seed_dynatrace_cac_url: https://github.com/rohitthakur2590/seed_network_cac
 seed_dynatrace_cac_dir: /tmp/seed_dynatrace_cac
