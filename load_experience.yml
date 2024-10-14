@@ -8,37 +8,6 @@
     __experience_bucket: '{{ experience.path.split("/")[3] }}'
     __experience_name: '{{ experience.path.split("/")[6] }}'
 
-- name: 'Check if an Execution Environment is provided for {{ __experience_bucket }}.{{ __experience_name }}'
-  ansible.builtin.file:
-    path: "{{ experience.path.replace('setup.yml', 'exec_env') }}"
-  failed_when: false
-  register: __experience_exec_env
-
-- name: Generate and publish Execution Environment
-  ansible.builtin.include_role:
-    name: infra.ee_utilities.ee_builder
-  vars:
-    ee_builder_dir_clean: false
-    ee_builder_dir: "{{ experience.path.replace('setup.yml', 'exec_env') }}"
-    ee_update_base_images: false
-    ee_pull_collections_from_hub: false
-    ee_image_push: true
-    ee_registry_username: '{{ ee_registry_username }}'
-    ee_registry_password: '{{ ee_registry_password }}'
-    ee_registry_dest: '{{ ee_registry_url }}'
-    ee_list:
-      - name: "{{ ee_registry_url }}/{{ __experience_bucket }}_{{ __experience_name }}"
-        skip_generation: true
-  when: __experience_exec_env.state == 'directory'
-
-- name: Dynamically add a new EE to controller_configuration
-  ansible.builtin.set_fact:
-    controller_execution_environments:
-      - name: "ee_{{ __experience_bucket }}_{{ __experience_name }}"
-        image: "{{ ee_registry_url }}/{{ __experience_bucket }}_{{ __experience_name }}"
-        pull: always
-  when: __experience_exec_env.state == 'directory'
-
 - name: Execute automation controller resource configuration
   ansible.builtin.include_role:
     name: infra.controller_configuration.dispatch
