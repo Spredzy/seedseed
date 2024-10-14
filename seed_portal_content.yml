@@ -32,70 +32,80 @@
       when: "'use-case-1' is in seed_usecase | default([])"
 
     - block:
+        - name: Create temp dir
+          ansible.builtin.tempfile:
+            state: directory
+            suffix: build
+          register: tmp_dir
+
         - name: Get use-case-2 supported Automation Application
           ansible.builtin.git:
-            repo: '{{ seed_cloud_cac_url }}'
-            dest: '{{ seed_cloud_cac_dir }}'
+            repo: '{{ seed_usecase2_url }}'
+            dest: '{{ tmp_dir.path}}/{{ seed_usecase2_url.split("/")[-1] }}'
 
-        - name: Include vars
-          ansible.builtin.include_vars:
-            dir: '{{ seed_cloud_cac_dir }}'
-            extensions:
-              - yml
-              - yaml
-            ignore_unknown_extensions: true
+        - name: Get all experiences in collection
+          ansible.builtin.find:
+            paths: '{{ tmp_dir.path }}/{{ seed_usecase2_url.split("/")[-1] }}'
+            patterns: setup.yml
+            recurse: true
+          register: experiences
 
-        - name: Execute automation controller resource configuration
-          ansible.builtin.include_role:
-            name: infra.controller_configuration.dispatch
-          vars:
-            controller_configuration_async_delay: 1
-            controller_configuration_async_retries: 30
-
+        - name: Load experiences
+          ansible.builtin.include_tasks: load_experience.yml
+          loop: '{{ experiences.files }}'
+          loop_control:
+            loop_var: experience
       when: "'use-case-2' is in seed_usecase | default([])"
 
     - block:
+        - name: Create temp dir
+          ansible.builtin.tempfile:
+            state: directory
+            suffix: build
+          register: tmp_dir
+
         - name: Get use-case-3 supported Automation Application
           ansible.builtin.git:
-            repo: '{{ seed_linux_cac_url }}'
-            dest: '{{ seed_linux_cac_dir }}'
+            repo: '{{ seed_usecase3_url }}'
+            dest: '{{ tmp_dir.path}}/{{ seed_usecase3_url.split("/")[-1] }}'
 
-        - name: Include vars
-          ansible.builtin.include_vars:
-            dir: '{{ seed_linux_cac_dir }}'
-            extensions:
-              - yml
-              - yaml
-            ignore_unknown_extensions: true
+        - name: Get all experiences in collection
+          ansible.builtin.find:
+            paths: '{{ tmp_dir.path }}/{{ seed_usecase3_url.split("/")[-1] }}'
+            patterns: setup.yml
+            recurse: true
+          register: experiences
 
-        - name: Execute automation controller resource configuration
-          ansible.builtin.include_role:
-            name: infra.controller_configuration.dispatch
-          vars:
-            controller_configuration_async_delay: 1
-            controller_configuration_async_retries: 30
+        - name: Load experiences
+          ansible.builtin.include_tasks: load_experience.yml
+          loop: '{{ experiences.files }}'
+          loop_control:
+            loop_var: experience
 
       when: "'use-case-3' is in seed_usecase | default([])"
 
     - block:
+        - name: Create temp dir
+          ansible.builtin.tempfile:
+            state: directory
+            suffix: build
+          register: tmp_dir
+
         - name: Get use-case-4 supported Automation Application
           ansible.builtin.git:
-            repo: '{{ seed_linux_cac_url }}'
-            dest: '{{ seed_linux_cac_dir }}'
+            repo: '{{ seed_usecase4_url }}'
+            dest: '{{ tmp_dir.path}}/{{ seed_usecase4_url.split("/")[-1] }}'
 
-        - name: Include vars
-          ansible.builtin.include_vars:
-            dir: '{{ seed_linux_cac_dir }}'
-            extensions:
-              - yml
-              - yaml
-            ignore_unknown_extensions: true
+        - name: Get all experiences in collection
+          ansible.builtin.find:
+            paths: '{{ tmp_dir.path }}/{{ seed_usecase4_url.split("/")[-1] }}'
+            patterns: setup.yml
+            recurse: true
+          register: experiences
 
-        - name: Execute automation controller resource configuration
-          ansible.builtin.include_role:
-            name: infra.controller_configuration.dispatch
-          vars:
-            controller_configuration_async_delay: 1
-            controller_configuration_async_retries: 30
-
+        - name: Load experiences
+          ansible.builtin.include_tasks: load_experience.yml
+          loop: '{{ experiences.files }}'
+          loop_control:
+            loop_var: experience
       when: "'use-case-4' is in seed_usecase | default([])"
