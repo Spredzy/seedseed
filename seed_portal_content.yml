@@ -13,12 +13,12 @@
 
         - name: Get use-case-1 supported Automation Application
           ansible.builtin.git:
-            repo: '{{ seed_network_cac_url }}'
-            dest: '{{ tmp_dir.path}}/{{ seed_network_url.split("/")[-1] }}'
+            repo: '{{ seed_usecase1_url }}'
+            dest: '{{ tmp_dir.path}}/{{ seed_usecase1_url.split("/")[-1] }}'
 
         - name: Get all experiences in collection
           ansible.builtin.find:
-            paths: '{{ tmp_dir.path }}/{{ seed_network_url.split("/")[-1] }}'
+            paths: '{{ tmp_dir.path }}/{{ seed_usecase1_url.split("/")[-1] }}'
             patterns: setup.yml
             recurse: true
           register: experiences
